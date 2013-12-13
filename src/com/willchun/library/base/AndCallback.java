@@ -8,6 +8,7 @@ package com.willchun.library.base;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.androidquery.util.AQUtility;
 import com.willchun.library.R;
 
 
@@ -24,6 +25,9 @@ public abstract class AndCallback<T> extends AjaxCallback<T> {
     public void callback(String url, T object, AjaxStatus status) {
         // TODO Auto-generated method stub
         super.callback(url, object, status);
+        if(AQUtility.isDebug()){
+            AQUtility.debug("url:" + url, "callback:" + object);
+        }
         onComplete(url, object, status);
         
         switch (status.getCode()) {

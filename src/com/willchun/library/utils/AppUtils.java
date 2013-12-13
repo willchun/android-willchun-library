@@ -114,5 +114,14 @@ public class AppUtils {
         }
         return apiKey;
     }
+    
+    /**
+     * 跳转到游览器
+     * @param url
+     */
+    public static void jump2Browser(Context context, String url) {
+        Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(url));
+        context.startActivity(viewIntent);
+    }
  
 }
