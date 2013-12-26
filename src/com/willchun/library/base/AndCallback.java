@@ -9,7 +9,6 @@ package com.willchun.library.base;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.util.AQUtility;
-import com.willchun.library.R;
 
 
 /**
@@ -25,18 +24,15 @@ public abstract class AndCallback<T> extends AjaxCallback<T> {
     public void callback(String url, T object, AjaxStatus status) {
         // TODO Auto-generated method stub
         super.callback(url, object, status);
-        if(AQUtility.isDebug()){
-            AQUtility.debug("url:" + url, "callback:" + object);
-        }
+        AQUtility.debug("result:" + object + "*********url:" + url);
         onComplete(url, object, status);
-        
         switch (status.getCode()) {
         case AjaxStatus.TRANSFORM_ERROR:
             break;
         case HTTP_200:
             on200Success(url, object);
             break;
-/*        case HTTP_403:
+       case HTTP_403:
             on403NetError(url, status);
             break;
         case HTTP_404:
@@ -44,28 +40,49 @@ public abstract class AndCallback<T> extends AjaxCallback<T> {
             break;    
         case HTTP_500:
             on500NetError(url, status);
-            break;    */
+            break;
         default:
             break;
         }
     }
+    /**
+     * 请求成功
+     * @param url
+     * @param object
+     */
     protected abstract void on200Success(String url, T object);
     
-/*    protected void on403NetError(String url, AjaxStatus status) {
-        onErrorLog(url, R.string.error_403, status);
+    /**
+     * 禁止访问
+     * @param url
+     * @param status
+     */
+    protected void on403NetError(String url, AjaxStatus status) {
     }
     
+    /**
+     * 无法找到文件
+     * @param url
+     * @param status
+     */
     protected void on404NetError(String url, AjaxStatus status) {
-        onErrorLog(url, R.string.error_404, status);
     }
 
+    /**
+     * 内部服务器错误
+     * @param url
+     * @param status
+     */
     protected void on500NetError(String url, AjaxStatus status) {
-        onErrorLog(url, R.string.error_500, status);
-    }*/
-    private void onErrorLog(String url, int resId, AjaxStatus status){
-       
+    
     }
     
+    /**
+     * 请求完成
+     * @param url
+     * @param object
+     * @param status
+     */
     protected void onComplete(String url, T object,  AjaxStatus status) {
         
     }

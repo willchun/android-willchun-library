@@ -7,107 +7,74 @@
 package com.willchun.library.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.willchun.library.base.AndAdapter;
-
 import android.app.Activity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
+import com.willchun.library.base.AndQuery;
 
 
 /**
  * @author willchun (wcly10@gmail.com)
  * @date 2013-5-21
  */
-public class ModelAdapter<T> extends AndAdapter<T> {
-    protected List<T> objects;
-
-    public ModelAdapter(Activity activity, List<T> objects, int resId, Class<? extends IViewHolder<T>> itemClass) {
-        super(resId, activity, itemClass);
-        if (objects == null) {
-            this.objects = new ArrayList<T>();
-        } else {
-            this.objects = objects;
-        }
+public abstract class ModelAdapter<T> extends ArrayAdapter<T> implements View.OnClickListener{
+    private List<T> items;
+    private AndQuery aquery;
+    private int itemResId;
+    private Activity activity;
+    
+    public ModelAdapter(Activity activity, List<T> items, int itemResId) {
+        super(activity, itemResId, items);
+        this.items = items;
+        this.activity = activity;
+        this.aquery = new AndQuery(activity);
+        this.itemResId = itemResId;
     }
 
-    public ModelAdapter(Activity activity, int resId, Class<? extends IViewHolder<T>> itemClass) {
-        this(activity, new ArrayList<T>(), resId, itemClass);
+    public ModelAdapter(Activity activity, int mItemResId) {
+        this(activity, new ArrayList<T>(), mItemResId);
     }
-
-    public ModelAdapter(Activity activity, List<T> objects, int resId) {
-        this(activity, objects, resId, null);
-    }
-
-    public ModelAdapter(Activity activity, int resId) {
-        this(activity, new ArrayList<T>(), resId, null);
-    }
-
-    public ModelAdapter(Activity activity, T[] objects, int resId, Class<? extends IViewHolder<T>> itemClass) {
-        this(activity, Arrays.asList(objects), resId, itemClass);
-    }
-
-    @Override
-    public int getCount() {
-        return objects.size();
-    }
-
-    @Override
-    public T getItem(int position) {
-        return objects.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    public void addItem(T object) {
-        if (object != null) {
-            objects.add(object);
-            notifyDataSetChanged();
-        }
-    }
-
-    public void addItems(List<T> items) {
-        if (items != null) {
-            objects.addAll(items);
-            notifyDataSetChanged();
-        }
-    }
-
-    public void addItems(T... items) {
-        addItems(Arrays.asList(items));
-    }
-
-    public void setItems(List<T> items) {
-        objects.clear();
-        addItems(items);
-    }
-
-    public void setItems(T... items) {
-        objects.clear();
-        addItems(items);
-    }
-
+    
     public List<T> getItems() {
-        return objects;
+        return items;
     }
-
-    public void deleteItem(int position) {
-        objects.remove(position);
-        notifyDataSetChanged();
-    }
-
-    public void deleteItems(List<T> items) {
-        objects.removeAll(items);
-        notifyDataSetChanged();
-    }
-
-    public void clear() {
-        if (objects != null) {
-            objects.clear();
+    
+    
+    
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // TODO Auto-generated method stub
+        if(convertView == null){
+            convertView = View.inflate(activity, itemResId, null);
         }
-        notifyDataSetChanged();
+        aquery.recycle(convertView);
+        update(getItem(position), aquery);
+        return convertView;
+    }
+    
+    protected abstract void update(T item, AndQuery aq);
+    
+    /**
+     * 给列表项中的某个view设置点击监听事情
+     * 
+     * @param position
+     * @param viewId
+     */
+    public void clicked(int position, int viewId) {
+        aquery.id(viewId).getView().setTag(position);
+        aquery.id(viewId).clicked(this);
+    }
+
+    @Override
+    public final void onClick(View v) {
+        onClick((Integer) v.getTag(), v);
+    }
+
+    protected void onClick(int position, View v) {
+
     }
 }

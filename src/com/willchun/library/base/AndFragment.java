@@ -6,7 +6,6 @@
  */
 package com.willchun.library.base;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
  */
 public abstract class AndFragment extends Fragment {
     protected AndQuery aq;
-    protected static final int NO_LAYOUT = 0;
 
     protected Intent intent(Class<?> clz) {
         return new Intent(getActivity(), clz);
@@ -29,13 +27,7 @@ public abstract class AndFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (contentView() != NO_LAYOUT)
-            return (aq = new AndQuery(getActivity(), inflater.inflate(contentView(), container,
-                    false))).getView();
-
-        // 无界面的Fragment
-        aq = new AndQuery(getActivity());
-        return null;
+        return (aq = new AndQuery(getActivity(), inflater.inflate(contentView(), container, false))).getView();
     }
 
     @Override
@@ -54,12 +46,13 @@ public abstract class AndFragment extends Fragment {
     protected void onHomeAsUpClick() {
         getActivity().finish();
     }
+    
+    public AndActivity getAndActivity(){
+        return (AndActivity) getActivity();
+    }
 
     public abstract void onRefreshUI();
 
     protected abstract int contentView();
-    
-    protected ActionBar getSherlockActionBar(){
-        return getActivity().getActionBar();
-    }
+   
 }

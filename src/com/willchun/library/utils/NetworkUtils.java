@@ -13,6 +13,8 @@ import java.util.Enumeration;
 
 import org.apache.http.conn.util.InetAddressUtils;
 
+import com.androidquery.util.AQUtility;
+
 import android.util.Log;
 
 /**    <uses-permission android:name="android.permission.INTERNET" />  

@@ -9,11 +9,7 @@ package com.willchun.library.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
-import android.os.Bundle;
 
 /**
  * 应用工具类
@@ -21,36 +17,6 @@ import android.os.Bundle;
  *@date 2013-10-28
  */
 public class AppUtils {
-    /**
-     * 获取应用版本编号   android:versionCode
-     * @return
-     */
-    public static int getVerCode(Context context){
-        int verCode = -1;
-        try {
-            verCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-        } catch (NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return verCode;
-    }
-    
-    /**
-     * 获取版本名称 android:versionName
-     * @return
-     */
-    public static String getVerName(Context context){
-        String verName = null;
-        try {
-            verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        } catch (NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return verName;
-    }
-    
 
     /**
      * 跳转到拨打电话页面
@@ -87,33 +53,7 @@ public class AppUtils {
         activity.startActivity(it);  
     }
     
-    // 获取AppKey
-    /**
-     * 获取 AndroidManifest.xml里面 MetaData里面的值
-     * @param context
-     * @param metaKey
-     * @return
-     */
-    public static String getMetaValue(Context context, String metaKey) {
-        Bundle metaData = null;
-        String apiKey = null;
-        if (context == null || metaKey == null) {
-            return null;
-        }
-        try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
-            if (null != ai) {
-                metaData = ai.metaData;
-            }
-            if (null != metaData) {
-                apiKey = metaData.getString(metaKey);
-            }
-        } catch (NameNotFoundException e) {
 
-        }
-        return apiKey;
-    }
     
     /**
      * 跳转到游览器

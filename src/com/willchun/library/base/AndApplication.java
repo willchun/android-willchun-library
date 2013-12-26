@@ -7,27 +7,45 @@
 package com.willchun.library.base;
 
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.androidquery.util.AQUtility;
+import com.umeng.analytics.MobclickAgent;
+import com.willchun.library.utils.ManifestUtils;
 
 /**
+ * 
  *@author willchun (wcly10@gmail.com)
  *@date 2013-5-21
  */
 public class AndApplication extends Application {
-    private boolean isDebug = true;
+    private boolean debug;
+    private AndQuery andQuery;
+    
+    public AndQuery getAndQuery(){
+        if(andQuery==null)
+            andQuery = new AndQuery(this);
+        return andQuery;
+    }
     
     @Override
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
+        debug = isDebugMode();
         AQUtility.setContext(this);
-        AQUtility.setDebug(isDebug);
+        AQUtility.setDebug(debug);
+        //设置友盟debug
+        MobclickAgent.setDebugMode(debug);
+        Log.d("will",
+                "UMENG_CHANNEL:" + ManifestUtils.getMetaData(this, "UMENG_CHANNEL") + "-isDebug:" + isDebug()
+                        + "-versionName:" + ManifestUtils.getVersionName(this) + "-versionCode:"
+                        + ManifestUtils.getVersionCode(this));
     }
 
     public void showShortToast(int msgId) {
@@ -46,12 +64,50 @@ public class AndApplication extends Application {
         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
     }
     
-    public void setDebug(boolean flag){
-        this.isDebug = flag;
-        AQUtility.setDebug(isDebug);
+    /**
+     * 是否是debug模式
+     * @return
+     */
+    public boolean isDebug() {
+        return debug;
+    }
+    
+    /**
+     * 判断应用是不是debug模式
+     * @return
+     */
+    private boolean isDebugMode() {
+        try {
+            PackageManager pm = getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
+            return ((pi.applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    /**
+     * 输出debug模式下的日志
+     * 
+     * @param tag
+     * @param message
+     */
+    public void d(String tag, Object message) {
+        if (isDebug()) {
+            Log.d(tag, message + "");
+        }
     }
 
-    public boolean isDebug() {
-        return isDebug;
+    /**
+     * 输入error模式下 的日志
+     * 
+     * @param tag
+     * @param message
+     */
+    public void e(String tag, Object message) {
+        if (isDebug()) {
+            Log.e(tag, message + "");
+        }
     }
 }

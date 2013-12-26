@@ -7,22 +7,22 @@
 package com.willchun.library.base;
 
 
+import com.androidquery.callback.BitmapAjaxCallback;
+import com.androidquery.util.AQUtility;
+import com.umeng.analytics.MobclickAgent;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 
-
-
 public abstract class AndActivity extends FragmentActivity {
-    
+    private boolean isClickHomeFinish = true;
     private Bundle mSavedState;
-    protected AndQuery aq;
     
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        aq = new AndQuery(this);
         
         if (savedState == null) {
             this.mSavedState = getIntent() == null? null :getIntent().getExtras();
@@ -36,14 +36,6 @@ public abstract class AndActivity extends FragmentActivity {
         }
     };
     
-    
-    
-    public AndQuery getAq() {
-        return aq;
-    }
-
-
-
     protected Intent intent(Class<?> clz) {
         return new Intent(this, clz);
     }
@@ -59,16 +51,22 @@ public abstract class AndActivity extends FragmentActivity {
             mSavedState = new Bundle();
         return mSavedState;
     }
-
+    
+    
     protected boolean isHomeButtonEnabled() {
         return true;
+    }
+    
+    public AndApplication app(){
+        return (AndApplication)getApplication();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            onHomeAsUpClick();
+            if(isClickHomeFinish)
+                finish();
             break;
         default:
             break;
@@ -76,8 +74,47 @@ public abstract class AndActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
     
-    protected void onHomeAsUpClick() {
-        finish();
+    public void setClickHomeFinish(boolean isClickHomeFinish) {
+        this.isClickHomeFinish = isClickHomeFinish;
+    }
+    
+    
+
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    
+    
+
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        if (isTaskRoot()) {
+            AQUtility.cleanCacheAsync(this);
+        }
+    }
+    
+    
+
+    @Override
+    public void onLowMemory() {
+        // TODO Auto-generated method stub
+        super.onLowMemory();
+        //低内存处理
+        //clear all memory cached images when system is in low memory
+        //note that you can configure the max image cache count, see CONFIGURATION
+         BitmapAjaxCallback.clearCache();
     }
 
     @Override
@@ -85,24 +122,6 @@ public abstract class AndActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
         if (mSavedState != null)
             outState.putAll(mSavedState);
-    }
-
-    public void addFragment(int containerViewId, Fragment fragment, String tag) {
-        getSupportFragmentManager().beginTransaction().add(containerViewId, fragment, tag).commit();
-    }
-
-    public void addFragment(int containerViewId, Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().add(containerViewId, fragment).commit();
-    }
-
-    public void replaceFragment(int containerViewId, Fragment fragment, String tag) {
-        getSupportFragmentManager().beginTransaction().replace(containerViewId, fragment, tag)
-                .commit();
-    }
-    
-    public void replaceFragmentBackStack(int containerViewId, Fragment fragment, String tag) {
-        getSupportFragmentManager().beginTransaction().replace(containerViewId, fragment, tag).
-                addToBackStack(null).commit();
     }
 
     public void replaceFragment(int containerViewId, Fragment fragment) {
