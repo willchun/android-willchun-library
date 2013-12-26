@@ -16,7 +16,7 @@ import android.net.Uri;
  *@author chunwang (wcly10@gmail.com)
  *@date 2013-10-28
  */
-public class AppUtils {
+public class CommonUtils {
 
     /**
      * 跳转到拨打电话页面

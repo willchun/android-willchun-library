@@ -15,9 +15,12 @@ import org.apache.http.conn.util.InetAddressUtils;
 
 import com.androidquery.util.AQUtility;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 /**    <uses-permission android:name="android.permission.INTERNET" />  
+ *     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
  * 网络通信相关工具类
  * 1)获得当前的IPv4地址     getLocalIpAddressV4
  * 
@@ -25,7 +28,10 @@ import android.util.Log;
  * @date 2013-12-12
  */
 public class NetworkUtils {
-
+    public static final int NETWORK_STATUS_NONE = 0;
+    public static final int NETWORK_STATUS_WIFI = 1;
+    public static final int NETWORK_STATUS_MOBILE = 2;
+    
     /**
      * 获得当前的IPv4地址 
      * @return
@@ -46,10 +52,27 @@ public class NetworkUtils {
                 }
             }
         } catch (SocketException e) {
-            //暂时没有自己的日志内，暂时不显示
-            Log.e("NetworkUtils", e.toString());
+            LogUtils.e(e.toString());
         }
 
         return null;
     }
+    
+    /**
+     * <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+     * 获取当前的网络状态   如果不是wifi或mobile 代表无网络 .   判断依据是当前网络正在连接，或者已连接
+     * @param context
+     * @return 参考NetworkUtils.NETWORK_STATUS_NONE NetworkUtils.NETWORK_STATUS_WIFI  NetworkUtils.NETWORK_STATUS_MOBILE
+     */
+    public static int getLocalNetworkState(Context context){
+        ConnectivityManager con = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting()){
+            return NETWORK_STATUS_WIFI;
+        }else if(con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting()){
+            return NETWORK_STATUS_MOBILE;
+        }else {
+            return NETWORK_STATUS_NONE;
+        }
+    }
+    
 }

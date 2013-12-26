@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.androidquery.util.AQUtility;
 import com.umeng.analytics.MobclickAgent;
+import com.willchun.library.utils.LogUtils;
 import com.willchun.library.utils.ManifestUtils;
 
 /**
@@ -40,12 +41,12 @@ public class AndApplication extends Application {
         debug = isDebugMode();
         AQUtility.setContext(this);
         AQUtility.setDebug(debug);
+        LogUtils.setDebug(debug);
         //设置友盟debug
         MobclickAgent.setDebugMode(debug);
-        Log.d("will",
-                "UMENG_CHANNEL:" + ManifestUtils.getMetaData(this, "UMENG_CHANNEL") + "-isDebug:" + isDebug()
-                        + "-versionName:" + ManifestUtils.getVersionName(this) + "-versionCode:"
-                        + ManifestUtils.getVersionCode(this));
+        LogUtils.d("UMENG_CHANNEL:" + ManifestUtils.getMetaData(this, "UMENG_CHANNEL") + "-isDebug:" + isDebug()
+                + "-versionName:" + ManifestUtils.getVersionName(this) + "-versionCode:"
+                + ManifestUtils.getVersionCode(this));
     }
 
     public void showShortToast(int msgId) {

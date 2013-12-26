@@ -20,9 +20,13 @@ import android.view.MenuItem;
 public abstract class AndActivity extends FragmentActivity {
     private boolean isClickHomeFinish = true;
     private Bundle mSavedState;
+    protected AndQuery aq;
     
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        if(aq == null){
+            aq = new AndQuery(this);
+        }
         
         if (savedState == null) {
             this.mSavedState = getIntent() == null? null :getIntent().getExtras();
