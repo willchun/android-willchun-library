@@ -50,6 +50,7 @@ public class ToastView {
         }
         toast = new Toast(context);
         toast.setDuration(duration);
+        toast.setGravity(gravity, 0, 0);
         toast.setView(view);
         return toast;
     }
