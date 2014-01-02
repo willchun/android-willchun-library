@@ -18,6 +18,8 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 /**
+ * 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
  * 网络状态改变监测的服务
  *@author chunwang (wcly10@gmail.com)
  *@date 2013-12-26
