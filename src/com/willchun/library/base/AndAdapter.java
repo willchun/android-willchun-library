@@ -52,11 +52,11 @@ public abstract class AndAdapter<T> extends ArrayAdapter<T> implements View.OnCl
             convertView = View.inflate(activity, itemResId, null);
         }
         aquery.recycle(convertView);
-        update(getItem(position), aquery);
+        update(getItem(position), aquery, position);
         return convertView;
     }
     
-    protected abstract void update(T item, AndQuery aq);
+    protected abstract void update(T item, AndQuery aq, int position);
     
     /**
      * 给列表项中的某个view设置点击监听事情
