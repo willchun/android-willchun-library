@@ -42,8 +42,7 @@ public abstract class AndFragment extends Fragment {
         }else {
             mSaveBundle = savedInstanceState;
         }
-        //特有的初始化
-        willInit();
+        onRefreshUI();
     }
 
     public Bundle getArguments_Will(){
@@ -80,8 +79,6 @@ public abstract class AndFragment extends Fragment {
     public AndActivity getAndActivity(){
         return (AndActivity) getActivity();
     }
-    
-    public abstract void willInit();
 
     public abstract void onRefreshUI();
 
