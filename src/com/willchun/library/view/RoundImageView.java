@@ -24,7 +24,7 @@ import android.widget.ImageView;
 public class RoundImageView extends ImageView {
 	private int mBorderThickness = 0;
 	private Context mContext;
-	private int defaultColor = 0xFFFFFFFF;
+	private int defaultColor = 0x00FFFFFF;
 	// 如果只有其中一个有值，则只画一个圆形边框
 	private int mBorderOutsideColor = 0;
 	private int mBorderInsideColor = 0;
