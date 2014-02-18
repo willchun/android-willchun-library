@@ -87,28 +87,4 @@ public class AndApplication extends Application {
         }
         return false;
     }
-    
-    /**
-     * 输出debug模式下的日志
-     * 
-     * @param tag
-     * @param message
-     */
-    public void d(String tag, Object message) {
-        if (isDebug()) {
-            Log.d(tag, message + "");
-        }
-    }
-
-    /**
-     * 输入error模式下 的日志
-     * 
-     * @param tag
-     * @param message
-     */
-    public void e(String tag, Object message) {
-        if (isDebug()) {
-            Log.e(tag, message + "");
-        }
-    }
 }

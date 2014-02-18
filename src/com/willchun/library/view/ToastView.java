@@ -8,6 +8,8 @@ package com.willchun.library.view;
 
 import java.util.Timer;
 
+import javax.crypto.spec.IvParameterSpec;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,7 +29,8 @@ import com.willchun.library.R;
 public class ToastView {
     
     public static Toast toast;
-
+    public static int defaultImg = R.drawable.ic_launcher;
+    
     /**
      * 自定义一个Toast
      * @param context
@@ -41,9 +44,11 @@ public class ToastView {
         View view = inflater.inflate(R.layout.willchun_lib_toast_view, null);
         TextView t = (TextView) view.findViewById(R.id.willchun_lib_toast_text);
         t.setText(text);
+        ImageView iv = (ImageView) view.findViewById(R.id.willchun_lib_toast_iv);
         if(resId > 0){
-            ImageView iv = (ImageView) view.findViewById(R.id.willchun_lib_toast_iv);
             iv.setImageResource(resId);
+        }else{
+            iv.setImageResource(defaultImg);
         }
         if(toast != null) {
             toast.cancel();
@@ -69,6 +74,14 @@ public class ToastView {
     
     public static void show(Context context, int textId, int imageId){
         show(context, context.getResources().getString(textId), imageId);
+    }
+    
+    public static void setDefaultImg(int img){
+        defaultImg = img;
+    }
+    
+    public int getDefaultImg(){
+        return defaultImg;
     }
 
 }
