@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * 应用工具类
@@ -64,4 +66,13 @@ public class CommonUtils {
         context.startActivity(viewIntent);
     }
  
+    
+    /**
+     * 关闭键盘
+     */
+    public static void closeKeyBoard(Context context, View view){
+        view.clearFocus();
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }
