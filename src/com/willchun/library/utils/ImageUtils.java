@@ -6,6 +6,12 @@
  */
 package com.willchun.library.utils;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -192,5 +198,59 @@ public class ImageUtils {
             childHeightSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         }
         child.measure(childWidthSpec, childHeightSpec);
+    }
+    
+    /**
+     * 保存bitmap到sd卡
+     * 
+     * @param bitmap 待保存的bitmap
+     * @param path 待保存的目录路径
+     * @param fileName 待保存的文件名
+     * @param compress 图片压缩率
+     * @return 图片路径或者null
+     * 
+     * 
+     * 把图片背景变成白色的
+     *                   Bitmap bgBitmap = Bitmap.createBitmap(bitmap);
+     *                  Canvas canvas = new Canvas(bgBitmap);
+     *                   canvas.drawARGB(255, 255, 255, 255);
+     *                   canvas.drawBitmap(bitmap, 0, 0, null);
+     */
+    public String saveImage2Local(Bitmap bitmap, String path, String fileName, int compress) {
+        File imagePath = null;
+        try {
+            if (bitmap != null && !bitmap.isRecycled()) {
+
+                File imgDir = new File(path);
+                if (!imgDir.exists()) {// 如果存储的不存在，先创建
+                    imgDir.mkdirs();
+                }
+
+                imagePath = new File(path, fileName + ".png");// 给新照的照片文件命名
+
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(imagePath));
+
+                /* 采用压缩转档方法 */
+                bitmap.compress(Bitmap.CompressFormat.PNG, compress, bos);
+
+                /* 调用flush()方法，更新BufferStream */
+                bos.flush();
+
+                /* 结束OutputStream */
+                bos.close();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (imagePath != null && bitmap != null) {
+            return imagePath.toString();
+        } else {
+            return null;
+        }
+
     }
 }

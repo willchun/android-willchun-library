@@ -89,7 +89,7 @@ public class UIUtils {
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
-    public static int px2Dip(int px) {
+    public int px2Dip(int px) {
         if (px == 0) {
             return 0;
         } else {
