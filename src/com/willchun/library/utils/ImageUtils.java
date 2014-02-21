@@ -216,7 +216,7 @@ public class ImageUtils {
      *                   canvas.drawARGB(255, 255, 255, 255);
      *                   canvas.drawBitmap(bitmap, 0, 0, null);
      */
-    public String saveImage2Local(Bitmap bitmap, String path, String fileName, int compress) {
+    public static String saveImage2Local(Bitmap bitmap, String path, String fileName, int compress) {
         File imagePath = null;
         try {
             if (bitmap != null && !bitmap.isRecycled()) {
