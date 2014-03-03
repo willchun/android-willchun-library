@@ -77,7 +77,7 @@ public class AndApplication extends Application {
      * 判断应用是不是debug模式
      * @return
      */
-    private boolean isDebugMode() {
+    public boolean isDebugMode() {
         try {
             PackageManager pm = getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
