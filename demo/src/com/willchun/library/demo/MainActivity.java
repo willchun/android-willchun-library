@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 
 import com.willchun.library.base.AndActivity;
+import com.willchun.library.demo.function.FunctionDemo;
 import com.willchun.library.demo.service.ServiceDemo;
 import com.willchun.library.demo.view.ViewDemo;
 import com.willchun.library.service.NetworkStateService;
@@ -33,6 +34,8 @@ public class MainActivity extends DemoListActivity{
         case 1:
             _intent(ViewDemo.class);
             break;
+        case 2:
+            _intent(FunctionDemo.class);
         default:
             break;
         }
@@ -41,7 +44,7 @@ public class MainActivity extends DemoListActivity{
     @Override
     public String[] getListName() {
         // TODO Auto-generated method stub
-        String[] ret = {"Service", "View"};
+        String[] ret = {"Service", "View", "Function"};
         return ret;
     }
 
