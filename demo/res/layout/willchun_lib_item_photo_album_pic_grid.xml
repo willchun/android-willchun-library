@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <ImageView
+        android:id="@+id/willchun_lib_item_photo_album_pic_grid_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+    <ToggleButton
+        android:id="@+id/willchun_lib_item_photo_album_pic_grid_toggle_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/willchun_lib_selector_photo_album"
+        android:textOff="@null"
+        android:textOn="@null" />
+
+</RelativeLayout>

@@ -22,7 +22,7 @@ public class FunctionDemo extends DemoListActivity {
         // TODO Auto-generated method stub
         switch (arg2) {
         case 0:
-            _intent(PhotoAlbumFunctionDemo.class);
+            _intent(PhotoAlbumDirFunctionActivity.class);
             break;
 
         default:

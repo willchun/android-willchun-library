@@ -10,7 +10,9 @@
     <uses-permission android:name="android.permission.INTERNET" />  
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
  	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    
+ 	
+ 	<!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+  <!--   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
         
     <application
         android:allowBackup="true"
@@ -35,9 +37,10 @@
         
         <!-- function -->
         <activity android:name="com.willchun.library.demo.function.FunctionDemo"></activity>
-        <activity android:name="com.willchun.library.demo.function.PhotoAlbumFunctionDemo"></activity>
+        <activity android:name="com.willchun.library.demo.function.PhotoAlbumDirFunctionActivity"></activity>
     <!-- 网络监测服务 -->    
     <service android:name="com.willchun.library.service.NetworkStateService"/>
+    <activity android:name=".function.PhotoAlbumPicFunctionActivity"></activity>
 
     </application>
 
