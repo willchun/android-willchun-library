@@ -14,6 +14,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.androidquery.callback.BitmapAjaxCallback;
 import com.androidquery.util.AQUtility;
 import com.umeng.analytics.MobclickAgent;
 import com.willchun.library.utils.LogUtils;
@@ -87,4 +88,13 @@ public class AndApplication extends Application {
         }
         return false;
     }
+
+    @Override
+    public void onLowMemory() {
+        // TODO Auto-generated method stub
+        super.onLowMemory();
+        BitmapAjaxCallback.clearCache();
+    }
+    
+    
 }

@@ -53,10 +53,15 @@ public abstract class AndAdapter<T> extends ArrayAdapter<T> implements View.OnCl
         }
         aquery.recycle(convertView);
         update(getItem(position), aquery, position);
+        update(getItem(position), position, aquery, convertView, parent);
         return convertView;
     }
     
     protected abstract void update(T item, AndQuery aq, int position);
+    
+    protected void update(T item, int position, AndQuery aq, View convertView, ViewGroup parent){
+        
+    }
     
     /**
      * 给列表项中的某个view设置点击监听事情
