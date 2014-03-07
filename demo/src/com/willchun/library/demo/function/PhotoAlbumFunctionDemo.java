@@ -18,6 +18,7 @@ import com.willchun.library.base.AndActivity;
 import com.willchun.library.base.AndAdapter;
 import com.willchun.library.base.AndQuery;
 import com.willchun.library.demo.R;
+import com.willchun.library.function.photoalbum.PhotoAlbumDirFunctionActivity;
 import com.willchun.library.utils.LogUtils;
 import com.willchun.library.utils.UIUtils;
 
@@ -86,7 +87,7 @@ public class PhotoAlbumFunctionDemo extends AndActivity {
             mAdapter.addAll(arg2.getStringArrayListExtra(PhotoAlbumDirFunctionActivity.DATA_KEY));
             mAdapter.notifyDataSetChanged();
         }
-    }
+    } 
     
     
     

@@ -36,12 +36,13 @@
         <activity android:name=".service.NetworkStateServiceDemo"></activity>
         
         <!-- function -->
-        <activity android:name=".function.PhotoAlbumFunctionDemo" android:screenOrientation="portrait"></activity>
-        <activity android:name="com.willchun.library.demo.function.FunctionDemo" android:screenOrientation="portrait"></activity>
-        <activity android:name="com.willchun.library.demo.function.PhotoAlbumDirFunctionActivity" android:screenOrientation="portrait"></activity>
+    	<activity android:name=".function.FunctionDemo"></activity>
+    	<activity android:name=".function.PhotoAlbumFunctionDemo" android:screenOrientation="portrait"></activity>
+    	<activity android:name="com.willchun.library.function.photoalbum.PhotoAlbumDirFunctionActivity" android:screenOrientation="portrait"></activity>
+    	<activity android:name="com.willchun.library.function.photoalbum.PhotoAlbumPicFunctionActivity" android:screenOrientation="portrait"></activity>
     <!-- 网络监测服务 -->    
     <service android:name="com.willchun.library.service.NetworkStateService"/>
-    <activity android:name=".function.PhotoAlbumPicFunctionActivity"></activity>
+
     
 
     </application>
