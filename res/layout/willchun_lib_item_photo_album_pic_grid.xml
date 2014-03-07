@@ -8,7 +8,12 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
     
-    
+    <ImageView 
+        android:id="@+id/willchun_lib_item_photo_album_pic_grid_edge_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/willchun_lib_shape_icon_edge"/>
     
     <CheckBox 
         android:id="@+id/willchun_lib_item_photo_album_pic_grid_cb"
@@ -16,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:focusable="false"
         android:padding="5dp"
         android:background="@drawable/willchun_lib_selector_photo_album_checkbox"
         android:button="@null"/>

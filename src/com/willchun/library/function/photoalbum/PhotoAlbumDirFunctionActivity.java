@@ -45,13 +45,25 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
     private final String IMG_PNG="image/png";
     
     private AndAdapter<PhotoDirInfo> mAdapter;
-    public static String DATA_KEY = "data_key";
+    public static final String DATA_KEY = "data_key";
+    public static final int CHOICE_MODE_SINGLE = 0x01;
+    public static final int CHOICE_MODE_MUTIPLE = 0x02;
+    private static final String KEY_CHOICE = "key_choice";
+    private int choiceMode = CHOICE_MODE_MUTIPLE;
+    
+    public static Intent getLaunchIntent(Context context, int choiceMode){
+        return new Intent(context, PhotoAlbumDirFunctionActivity.class).putExtra(KEY_CHOICE, choiceMode);
+    }
     
     @Override
     protected void onCreate(Bundle savedState) {
         // TODO Auto-generated method stub
         super.onCreate(savedState);
         setContentView(R.layout.willchun_lib_activity_photo_album_dir);
+        
+        if(getIntent() != null){
+            choiceMode = getIntent().getIntExtra(KEY_CHOICE, CHOICE_MODE_MUTIPLE);
+        }
         
         mAdapter = new AndAdapter<PhotoDirInfo>(this, R.layout.willchun_lib_item_photo_album_dir_list) {
 
@@ -86,9 +98,8 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(getBaseContext(), PhotoAlbumPicFunctionActivity.class);
-                intent.putExtra("key", mAdapter.getItems().get(arg2).getDirId());
-                startActivityForResult(intent, 101);
+                startActivityForResult(PhotoAlbumPicFunctionActivity.getLaunchIntent(getBaseContext(), mAdapter.getItems().get(arg2).getDirId(), choiceMode)
+                        , 101);
             }
         });
         
