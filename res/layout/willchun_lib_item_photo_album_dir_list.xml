@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    
+    <ImageView 
+        android:id="@+id/willchun_lib_item_photo_album_dir_list_iv"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/willchun_lib_item_photo_album_dir_list_iv"
+        android:orientation="vertical">
+    <TextView 
+        android:id="@+id/willchun_lib_item_photo_album_dir_list_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:singleLine="true"
+        android:text="sdcard0"/>
+    <TextView 
+        android:id="@+id/willchun_lib_item_photo_album_dir_list_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:singleLine="true"
+        android:textColor="#888888"
+        android:text="8张"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
