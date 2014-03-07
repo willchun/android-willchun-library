@@ -69,12 +69,20 @@ public class PhotoAlbumFunctionDemo extends AndActivity {
         
         aq.id(R.id.photo_album_gv).adapter(mAdapter);
         
-        aq.id(R.id.add_btn).clicked(new View.OnClickListener() {
+        aq.id(R.id.add_single_btn).clicked(new View.OnClickListener() {
             
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivityForResult(new Intent(getBaseContext(), PhotoAlbumDirFunctionActivity.class), 100);
+                startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntent(getBaseContext(), PhotoAlbumDirFunctionActivity.CHOICE_MODE_SINGLE), 100);
+            }
+        });
+        aq.id(R.id.add_mutiple_btn).clicked(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntent(getBaseContext(), PhotoAlbumDirFunctionActivity.CHOICE_MODE_MUTIPLE), 100);
             }
         });
     }

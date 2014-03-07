@@ -5,10 +5,15 @@
     android:orientation="vertical"
     android:padding="10dp">
     <Button 
-        android:id="@+id/add_btn"
+        android:id="@+id/add_single_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="增加相册图片"/>
+        android:text="增加单张相册图片"/>
+    <Button 
+        android:id="@+id/add_mutiple_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="增加多张相册图片"/>
 	<GridView 
 	    android:id="@+id/photo_album_gv"
 	    android:layout_width="match_parent"
