@@ -45,7 +45,7 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
     private final String IMG_PNG="image/png";
     
     private AndAdapter<PhotoDirInfo> mAdapter;
-    
+    public static String DATA_KEY = "data_key";
     
     @Override
     protected void onCreate(Bundle savedState) {
@@ -88,7 +88,7 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(getBaseContext(), PhotoAlbumPicFunctionActivity.class);
                 intent.putExtra("key", mAdapter.getItems().get(arg2).getDirId());
-                startActivity(intent);
+                startActivityForResult(intent, 101);
             }
         });
         
@@ -129,5 +129,17 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
         
         return list;
     }
+
+    @Override
+    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(arg0, arg1, arg2);
+        if(arg1 == RESULT_OK && arg0 == 101){
+                setResult(RESULT_OK, arg2);
+                finish();
+        }
+    }
+    
+    
     
 }

@@ -8,8 +8,10 @@ package com.willchun.library.demo.function;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -24,6 +26,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -40,7 +43,7 @@ import com.willchun.library.utils.UIUtils;
  *@author willchun (277143980@qq.com)
  *@date 2014-3-6
  */
-public class PhotoAlbumPicFunctionActivity extends AndActivity {
+public class PhotoAlbumPicFunctionActivity extends AndActivity implements View.OnClickListener{
 
     private String bucketId = "";
     private final String IMG_JPG = "image/jpg";
@@ -54,14 +57,13 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity {
     private GridView mGridView;
     
     private AndAdapter<String> mAdapter;
-    private int mHeight = 0;
     
     @Override
     protected void onCreate(Bundle savedState) {
         // TODO Auto-generated method stub
         super.onCreate(savedState);
         setContentView(R.layout.willchun_lib_activity_photo_album_pic);
-        mHeight = (UIUtils.getInstance(getWindowManager()).getWidth() - UIUtils.getInstance(getWindowManager()).dip2Px(2)*2)/3;
+       
         
         if(getIntent() != null)
             bucketId = getIntent().getStringExtra("key"); 
@@ -83,7 +85,7 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity {
                     lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
                
-                lp.height = mHeight;
+                lp.height = (UIUtils.getInstance(getWindowManager()).getWidth() - UIUtils.getInstance(getWindowManager()).dip2Px(2)*2)/3;
                 convertView.setLayoutParams(lp);
                 Bitmap placeholder = aq.getCachedImage(R.drawable.willchun_lib_photo_thumb_bg);
                 if(aq.shouldDelay(position, convertView, parent, item)){
@@ -92,7 +94,7 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity {
                     aq.id(R.id.willchun_lib_item_photo_album_pic_grid_iv).image(item, true, true, UIUtils.getInstance(getWindowManager()).dip2Px(75), 0, placeholder, 0);
                 }
                 
-                ToggleButton button = (ToggleButton)aq.id(R.id.willchun_lib_item_photo_album_pic_grid_toggle_button).getView();
+                CheckBox button = (CheckBox)aq.id(R.id.willchun_lib_item_photo_album_pic_grid_cb).getView();
                 button.setOnCheckedChangeListener(new OnCheckedChangeListener() {
                     
                     @Override
@@ -128,7 +130,7 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity {
                                         if (selectedData.containsKey(item)) {
                                             mImageLayout.removeView(selectedData.get(item));
                                             selectedData.remove(item);
-                                            ((ToggleButton)buttonView).setChecked(false);
+                                            ((CheckBox)buttonView).setChecked(false);
                                         }
                                     }
                                 });
@@ -156,6 +158,8 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity {
         
         mHorizontalScrollView = (HorizontalScrollView) aq.id(R.id.willchun_lib_activity_photo_album_pic_pre_hs).getView();
         mImageLayout = (LinearLayout)aq.id(R.id.selected_image_layout).getView();
+        
+        aq.id(R.id.willchun_lib_activity_photo_album_pic_pre_btn).clicked(this);
         refreshData();
     }
     
@@ -210,11 +214,35 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity {
     
     private void displayFinish(){
         if(selectedData.size() == 0){
-            aq.id(R.id.willchun_lib_activity_photo_album_pic_pre_btn).text("发送");
+            aq.id(R.id.willchun_lib_activity_photo_album_pic_pre_btn).text("确定");
         }else {
-            aq.id(R.id.willchun_lib_activity_photo_album_pic_pre_btn).text("发送(" + selectedData.size() +")");
+            aq.id(R.id.willchun_lib_activity_photo_album_pic_pre_btn).text("确定(" + selectedData.size() +")");
         }
         
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        switch (v.getId()) {
+        case R.id.willchun_lib_activity_photo_album_pic_pre_btn:
+            if(selectedData == null || selectedData.size() == 0){
+                return;
+            }
+            Iterator<String> iterator = selectedData.keySet().iterator();
+            ArrayList<String> ret = new ArrayList<String>();
+            while(iterator.hasNext()){
+                ret.add(iterator.next());
+            }
+            Intent intent = new Intent();
+            intent.putStringArrayListExtra(PhotoAlbumDirFunctionActivity.DATA_KEY, ret);
+            setResult(RESULT_OK, intent);
+            finish();
+            break;
+
+        default:
+            break;
+        }
     }
     
 }
