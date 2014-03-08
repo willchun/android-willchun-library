@@ -83,9 +83,9 @@ public class PhotoAlbumFunctionDemo extends AndActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                int num = -1;
-                if(TextUtils.isEmpty(aq.id(R.id.limit_number_et).getEditText().toString().trim()))
-                   num = Integer.parseInt(aq.id(R.id.limit_number_et).getEditText().toString().trim());
+                int num = 0;
+                if(!TextUtils.isEmpty(aq.id(R.id.limit_number_et).getEditText().getText().toString().trim()))
+                   num = Integer.parseInt(aq.id(R.id.limit_number_et).getEditText().getText().toString().trim());
                         
                 startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntentMutipleChoice(getBaseContext(), num), 100);
             }
