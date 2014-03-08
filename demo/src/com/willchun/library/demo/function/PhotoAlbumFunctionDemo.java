@@ -9,6 +9,7 @@ package com.willchun.library.demo.function;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -74,7 +75,7 @@ public class PhotoAlbumFunctionDemo extends AndActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntent(getBaseContext(), PhotoAlbumDirFunctionActivity.CHOICE_MODE_SINGLE), 100);
+                startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntentSingleChoice(getBaseContext()), 100);
             }
         });
         aq.id(R.id.add_mutiple_btn).clicked(new View.OnClickListener() {
@@ -82,7 +83,11 @@ public class PhotoAlbumFunctionDemo extends AndActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntent(getBaseContext(), PhotoAlbumDirFunctionActivity.CHOICE_MODE_MUTIPLE), 100);
+                int num = -1;
+                if(TextUtils.isEmpty(aq.id(R.id.limit_number_et).getEditText().toString().trim()))
+                   num = Integer.parseInt(aq.id(R.id.limit_number_et).getEditText().toString().trim());
+                        
+                startActivityForResult(PhotoAlbumDirFunctionActivity.getLaunchIntentMutipleChoice(getBaseContext(), num), 100);
             }
         });
     }

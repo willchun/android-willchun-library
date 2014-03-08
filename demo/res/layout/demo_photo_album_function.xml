@@ -9,6 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="增加单张相册图片"/>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="可选照片个数"/>
+    <EditText 
+        android:id="@+id/limit_number_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numeric="integer"
+        android:singleLine="true"
+        android:text="9"/>
+    
     <Button 
         android:id="@+id/add_mutiple_btn"
         android:layout_width="match_parent"
