@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import android.R.integer;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.willchun.library.R;
 import com.willchun.library.base.AndActivity;
@@ -64,12 +66,22 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
     
     private static final String KEY_ID = "key_id";
     private static final String KEY_CHOICE = "key_choice";
+    private static final String KEY_NUMBER = "key_number";
     
     private int choiceMode = PhotoAlbumDirFunctionActivity.CHOICE_MODE_MUTIPLE;
+    private int limitNum;
     
-    public static Intent getLaunchIntent(Context context, String dirId, int choiceMode){
+    /**
+     * 获取 相册详情的类
+     * @param context
+     * @param dirId 相关文件的buckId
+     * @param choiceMode 相册选择的模式
+     * @param limitNum  多选相册时 限制的个数
+     * @return
+     */
+    public static Intent getLaunchIntent(Context context, String dirId, int choiceMode, int limitNum){
         return new Intent(context, PhotoAlbumPicFunctionActivity.class).putExtra(KEY_ID, dirId)
-                .putExtra(KEY_CHOICE, choiceMode);
+                .putExtra(KEY_CHOICE, choiceMode).putExtra(KEY_NUMBER, limitNum);
     }
     
     @Override
@@ -82,6 +94,7 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
         if(getIntent() != null){
             bucketId = getIntent().getStringExtra(KEY_ID); 
             choiceMode = getIntent().getIntExtra(KEY_CHOICE, PhotoAlbumDirFunctionActivity.CHOICE_MODE_MUTIPLE);
+            limitNum = getIntent().getIntExtra(KEY_NUMBER, 99);
         }
         
         if(TextUtils.isEmpty(bucketId)){
@@ -191,6 +204,13 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
                             selectedData.put(item, null);
                             mAdapter.notifyDataSetChanged();
                         }else if(choiceMode == PhotoAlbumDirFunctionActivity.CHOICE_MODE_MUTIPLE){
+                            if(selectedData.size() >= limitNum){
+                                ((CheckBox)buttonView).setChecked(false);
+                                convertView.findViewById(R.id.willchun_lib_item_photo_album_pic_grid_edge_iv).setVisibility(View.GONE);
+                                Toast.makeText(getBaseContext(), "你最多只能选择" + limitNum + "张照片", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            
                             ImageView imageView = (ImageView) LayoutInflater.from(getBaseContext()).inflate(
                                     R.layout.willchun_lib_item_phtoto_album_pic_choose_imageview, mImageLayout,
                                     false);
