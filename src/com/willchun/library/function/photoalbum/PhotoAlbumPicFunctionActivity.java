@@ -309,7 +309,8 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
                 // TODO Auto-generated method stub
                 super.onPostExecute(result);
                 aq.id(R.id.progressbar).gone();
-                mAdapter.addAll(result);
+                for(String str : result)
+                    mAdapter.add(str);
                 mAdapter.notifyDataSetChanged();
             }
             

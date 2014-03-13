@@ -124,7 +124,10 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
             
 
         };
-        mAdapter.addAll(getImageDir(this));
+
+        for(PhotoDirInfo info : getImageDir(this))
+            mAdapter.add(info);
+        
         aq.id(R.id.willchun_lib_photo_album_dir_list_lv).adapter(mAdapter);
         
         aq.id(R.id.willchun_lib_photo_album_dir_list_lv).getListView().setOnItemClickListener(new OnItemClickListener() {
