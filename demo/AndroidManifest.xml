@@ -30,6 +30,7 @@
         <activity android:name=".view.ViewDemo"></activity>
         <activity android:name=".view.ToastViewDemo"/>
     	<activity android:name=".view.RoundImageViewDemo"></activity>
+        <activity android:name=".view.TextSizeColorViewDemo"></activity>
         
         <!-- service -->
         <activity android:name=".service.ServiceDemo"></activity>
@@ -42,6 +43,7 @@
     	<activity android:name="com.willchun.library.function.photoalbum.PhotoAlbumPicFunctionActivity" android:screenOrientation="portrait"></activity>
     <!-- 网络监测服务 -->    
     <service android:name="com.willchun.library.service.NetworkStateService"/>
+
 
     
 
