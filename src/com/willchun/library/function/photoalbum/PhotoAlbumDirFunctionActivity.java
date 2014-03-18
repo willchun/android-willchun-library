@@ -90,6 +90,7 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedState);
         setContentView(R.layout.willchun_lib_activity_photo_album_dir);
+        setTitle("照片");
         
         if(getIntent() != null){
             choiceMode = getIntent().getIntExtra(KEY_CHOICE, CHOICE_MODE_MUTIPLE);
@@ -135,7 +136,9 @@ public class PhotoAlbumDirFunctionActivity extends AndActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                startActivityForResult(PhotoAlbumPicFunctionActivity.getLaunchIntent(getBaseContext(), mAdapter.getItems().get(arg2).getDirId(), choiceMode, limitNum)
+                startActivityForResult(PhotoAlbumPicFunctionActivity.getLaunchIntent(getBaseContext(), mAdapter.getItems().get(arg2).getDirId()
+                        , mAdapter.getItem(arg2).getDirName()
+                        ,choiceMode, limitNum)
                         , 101);
             }
         });

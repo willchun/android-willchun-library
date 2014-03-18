@@ -65,6 +65,7 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
     private AndAdapter<String> mAdapter;
     
     private static final String KEY_ID = "key_id";
+    private static final String KEY_NAME = "key_name";
     private static final String KEY_CHOICE = "key_choice";
     private static final String KEY_NUMBER = "key_number";
     
@@ -75,12 +76,14 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
      * 获取 相册详情的类
      * @param context
      * @param dirId 相关文件的buckId
+     * @param dirName 目录名字
      * @param choiceMode 相册选择的模式
      * @param limitNum  多选相册时 限制的个数
      * @return
      */
-    public static Intent getLaunchIntent(Context context, String dirId, int choiceMode, int limitNum){
+    public static Intent getLaunchIntent(Context context, String dirId, String dirName, int choiceMode, int limitNum){
         return new Intent(context, PhotoAlbumPicFunctionActivity.class).putExtra(KEY_ID, dirId)
+                .putExtra(KEY_NAME, dirName)
                 .putExtra(KEY_CHOICE, choiceMode).putExtra(KEY_NUMBER, limitNum);
     }
     
@@ -89,12 +92,15 @@ public class PhotoAlbumPicFunctionActivity extends AndActivity{
         // TODO Auto-generated method stub
         super.onCreate(savedState);
         setContentView(R.layout.willchun_lib_activity_photo_album_pic);
-       
+        
         
         if(getIntent() != null){
             bucketId = getIntent().getStringExtra(KEY_ID); 
             choiceMode = getIntent().getIntExtra(KEY_CHOICE, PhotoAlbumDirFunctionActivity.CHOICE_MODE_MUTIPLE);
             limitNum = getIntent().getIntExtra(KEY_NUMBER, 99);
+            if(!TextUtils.isEmpty(getIntent().getStringExtra(KEY_NAME))){
+                setTitle(getIntent().getStringExtra(KEY_NAME));
+            }
         }
         
         if(TextUtils.isEmpty(bucketId)){
