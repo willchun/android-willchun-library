@@ -12,6 +12,7 @@ import com.androidquery.util.AQUtility;
 import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -33,11 +34,15 @@ public abstract class AndActivity extends FragmentActivity {
         } else {
             this.mSavedState = savedState;
         }
-        if (getActionBar() != null) {
-            getActionBar().setHomeButtonEnabled(isHomeButtonEnabled());
-            getActionBar().setDisplayHomeAsUpEnabled(
-                    isHomeButtonEnabled());
+        
+        if(Build.VERSION.SDK_INT >= 11){
+            if (getActionBar() != null) {
+                getActionBar().setHomeButtonEnabled(isHomeButtonEnabled());
+                getActionBar().setDisplayHomeAsUpEnabled(
+                        isHomeButtonEnabled());
+            }
         }
+            
     };
     
     protected Intent intent(Class<?> clz) {

@@ -7,9 +7,11 @@
 package com.willchun.library.base;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import android.app.Activity;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -82,4 +84,31 @@ public abstract class AndAdapter<T> extends ArrayAdapter<T> implements View.OnCl
     protected void onClick(int position, View v) {
 
     }
+
+    public void addAllData(Collection<? extends T> collection) {
+        // TODO Auto-generated method stub
+        if(Build.VERSION.SDK_INT < 11){
+            for(T t : collection){
+                add(t);
+            }
+        }else{
+            addAll(collection);
+        }
+    
+    }
+
+    public void addAllData(T... items) {
+        // TODO Auto-generated method stub
+        if(Build.VERSION.SDK_INT < 11){
+            for(T t : items){
+                add(t);
+            }
+        }else{
+            addAll(items);
+        }
+    }
+    
+    
+    
+    
 }
