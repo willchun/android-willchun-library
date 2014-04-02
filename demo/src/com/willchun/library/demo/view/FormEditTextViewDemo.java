@@ -34,6 +34,7 @@ public class FormEditTextViewDemo extends AndActivity {
     
     
     private char val = ' ';//分隔符
+    
     @Override
     protected void onCreate(Bundle savedState) {
         // TODO Auto-generated method stub
@@ -46,6 +47,12 @@ public class FormEditTextViewDemo extends AndActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
+                String text = editText.getText().toString();
+                String fun = test(text);
+                if(!text.trim().equals(fun.trim())){
+                	editText.setText(fun);
+                	editText.setSelection(fun.length());
+                }
                 
             }
             
@@ -61,6 +68,39 @@ public class FormEditTextViewDemo extends AndActivity {
         });
         
         
+    }
+    
+    public String test(String text){
+    	int len = text.length();
+    	if(len == 0){
+    		return "";
+    	}
+    	
+    	StringBuilder builder = new StringBuilder();//原始需要的手机字符串
+    	for(int i=0; i<len; i++){
+    		char car = text.charAt(i);
+    		if(car >= '0' && car <= '9'){
+    			builder.append(car);
+    		}
+    	}
+    	
+    	int l = builder.length();//不带隔板的长度
+    	if(l == 0){
+    		return "";
+    	}
+    	if(l >= 7){
+    		builder.insert(7, " ");
+    	}
+    	if(l >= 3){
+    		builder.insert(3, " ");
+    	}
+    	
+    	int size = Math.min(13, builder.toString().trim().length());
+    	if(size == 3 || size == 7){
+    		size += 1;
+    	}
+    	return builder.toString().substring(0, size);
+    	
     }
     
     public static String url = "^[0-9]{3} [0-9]{4} [0-9]{4}$";
