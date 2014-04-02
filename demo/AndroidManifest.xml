@@ -31,7 +31,7 @@
         <activity android:name=".view.ToastViewDemo"/>
     	<activity android:name=".view.RoundImageViewDemo"></activity>
         <activity android:name=".view.TextSizeColorViewDemo"></activity>
-        
+    	<activity android:name=".view.FormEditTextViewDemo"></activity>
         <!-- service -->
         <activity android:name=".service.ServiceDemo"></activity>
         <activity android:name=".service.NetworkStateServiceDemo"></activity>

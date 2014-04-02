@@ -31,6 +31,9 @@ public class ViewDemo extends DemoListActivity {
         case 2:
             _intent(TextSizeColorViewDemo.class);
             break;
+        case 3:
+            _intent(FormEditTextViewDemo.class);
+            break;
         default:
             break;
         }
@@ -39,7 +42,7 @@ public class ViewDemo extends DemoListActivity {
     @Override
     public String[] getListName() {
         // TODO Auto-generated method stub
-        String[] str = {"ToastView", "RoundImageView", "TextSizeColor"};
+        String[] str = {"ToastView", "RoundImageView", "TextSizeColor", "FormEditText"};
         return str;
     }
 
