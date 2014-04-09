@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -35,6 +36,9 @@ public class FormEditTextViewDemo extends AndActivity {
     
     private char val = ' ';//分隔符
     
+    private String hisStr = new String();//历史字符串
+
+    
     @Override
     protected void onCreate(Bundle savedState) {
         // TODO Auto-generated method stub
@@ -49,10 +53,28 @@ public class FormEditTextViewDemo extends AndActivity {
                 // TODO Auto-generated method stub
                 String text = editText.getText().toString();
                 String fun = test(text);
-                if(!text.trim().equals(fun.trim())){
+                LogUtils.e("t:" + text 
+                        + "\nf:" + fun
+                        + "\nh:" + hisStr);
+                if(!text.equals(fun)){
+                    if(hisStr.length() == 13 && text.length() >= 13){
+                        if(!hisStr.trim().equals(text.trim())){
+                            editText.setText(hisStr);
+                            return;
+                        }
+
+                    }
+                    
                 	editText.setText(fun);
                 	editText.setSelection(fun.length());
+                	
+                	if(fun.length() == 13){
+                	    CommonUtils.closeKeyBoard(getBaseContext(), editText);
+                	}
                 }
+                    
+                hisStr = new String(fun);
+               
                 
             }
             
@@ -71,10 +93,19 @@ public class FormEditTextViewDemo extends AndActivity {
     }
     
     public String test(String text){
-    	int len = text.length();
+    	boolean inc = true;//是不是递增
+        if(text.length() >= hisStr.length()){
+            inc = true;
+        }else {
+            inc = false;
+        }
+    	
+        int len = text.length();
     	if(len == 0){
     		return "";
     	}
+    	
+    	
     	
     	StringBuilder builder = new StringBuilder();//原始需要的手机字符串
     	for(int i=0; i<len; i++){
@@ -85,20 +116,24 @@ public class FormEditTextViewDemo extends AndActivity {
     	}
     	
     	int l = builder.length();//不带隔板的长度
+    	
     	if(l == 0){
     		return "";
     	}
-    	if(l >= 7){
+    	if(l == 7 && inc){
     		builder.insert(7, " ");
-    	}
-    	if(l >= 3){
-    		builder.insert(3, " ");
+    	}else if(l > 7){
+    	    builder.insert(7, " ");
     	}
     	
-    	int size = Math.min(13, builder.toString().trim().length());
-    	if(size == 3 || size == 7){
-    		size += 1;
+       if(l == 3 && inc){
+    		builder.insert(3, " ");
+    	}else if(l > 3){
+    	    builder.insert(3, " ");
     	}
+    	
+    	int size = Math.min(13, builder.toString().length());
+    	
     	return builder.toString().substring(0, size);
     	
     }
