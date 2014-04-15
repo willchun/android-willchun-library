@@ -86,7 +86,7 @@ public class CommonUtils {
     {  
     // 得到剪贴板管理器  
         ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);  
-        cmb.setText(content.trim());  
+        cmb.setText(content.trim());
     }  
     /** 
     * 实现粘贴功能 

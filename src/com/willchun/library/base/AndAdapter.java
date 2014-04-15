@@ -85,26 +85,27 @@ public abstract class AndAdapter<T> extends ArrayAdapter<T> implements View.OnCl
 
     }
 
-    public void addAllData(Collection<? extends T> collection) {
+    @Override
+    public void addAll(Collection<? extends T> collection) {
         // TODO Auto-generated method stub
-        if(Build.VERSION.SDK_INT < 11){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){
             for(T t : collection){
                 add(t);
             }
         }else{
-            addAll(collection);
+            super.addAll(collection);
         }
-    
     }
 
-    public void addAllData(T... items) {
+    @Override
+    public void addAll(T... items) {
         // TODO Auto-generated method stub
-        if(Build.VERSION.SDK_INT < 11){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB){
             for(T t : items){
                 add(t);
             }
         }else{
-            addAll(items);
+            super.addAll(items);
         }
     }
     
