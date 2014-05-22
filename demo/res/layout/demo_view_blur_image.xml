@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+
+
+<ImageView 
+    android:id="@+id/demo_view_blur_original_iv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/demo_willchun_blur_image"/>
+
+<ListView 
+    android:id="@+id/demo_view_blur_lv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@null">
+</ListView>
+
+<ImageView 
+    android:id="@+id/demo_view_blur_iv"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="50dp"/>
+</FrameLayout>
