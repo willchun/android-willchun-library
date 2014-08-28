@@ -36,6 +36,10 @@ public class MainActivity extends DemoListActivity{
             break;
         case 2:
             _intent(FunctionDemo.class);
+            break;
+        case 3:
+            _intent(BaiduDemo.class);
+            break;
         default:
             break;
         }
@@ -44,7 +48,7 @@ public class MainActivity extends DemoListActivity{
     @Override
     public String[] getListName() {
         // TODO Auto-generated method stub
-        String[] ret = {"Service", "View", "Function"};
+        String[] ret = {"Service", "View", "Function", "百度地图"};
         return ret;
     }
 
