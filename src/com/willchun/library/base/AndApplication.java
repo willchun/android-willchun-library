@@ -19,6 +19,7 @@ import com.androidquery.util.AQUtility;
 import com.umeng.analytics.MobclickAgent;
 import com.willchun.library.utils.LogUtils;
 import com.willchun.library.utils.ManifestUtils;
+import com.willchun.library.utils.StatisProxy;
 
 /**
  * 
@@ -44,7 +45,8 @@ public class AndApplication extends Application {
         AQUtility.setDebug(debug);
         LogUtils.setDebug(debug);
         //设置友盟debug
-        MobclickAgent.setDebugMode(debug);
+        StatisProxy.init(debug);
+
         LogUtils.d("UMENG_CHANNEL:" + ManifestUtils.getMetaData(this, "UMENG_CHANNEL") + "-isDebug:" + isDebug()
                 + "-versionName:" + ManifestUtils.getVersionName(this) + "-versionCode:"
                 + ManifestUtils.getVersionCode(this));

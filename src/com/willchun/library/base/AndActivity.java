@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
+import com.willchun.library.utils.StatisProxy;
 
 public abstract class AndActivity extends FragmentActivity {
     private boolean isClickHomeFinish = true;
@@ -93,14 +94,14 @@ public abstract class AndActivity extends FragmentActivity {
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-        MobclickAgent.onPause(this);
+        StatisProxy.onPause(this);
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        MobclickAgent.onResume(this);
+        StatisProxy.onResume(this);
     }
     
     
