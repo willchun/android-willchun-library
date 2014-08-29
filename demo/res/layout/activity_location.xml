@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+<LinearLayout
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="---------------定位相关----------------"/>
 
     <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="location init"/>
+            android:text="定位服务：关闭"/>
     <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="---------------围栏相关----------------"/>
+    <Button
+            android:id="@+id/wl_btn01"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="添加围栏"/>
+    <Button
+            android:id="@+id/wl_btn02"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="删除围栏"/>
+    <TextView
+            android:id="@+id/wl_content"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="---------------提醒相关----------------"/>
+    <CheckBox
+            android:id="@+id/tx_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提醒服务：关闭"/>
 </LinearLayout>
+</ScrollView>
