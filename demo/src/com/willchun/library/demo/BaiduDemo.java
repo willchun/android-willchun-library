@@ -2,6 +2,7 @@ package com.willchun.library.demo;
 
 import android.view.View;
 import android.widget.AdapterView;
+import com.willchun.library.demo.baidu.BaiduMapActivity;
 import com.willchun.library.demo.baidu.LocationActivity;
 
 /**
@@ -10,7 +11,7 @@ import com.willchun.library.demo.baidu.LocationActivity;
 public class BaiduDemo extends  DemoListActivity{
     @Override
     public String[] getListName() {
-        String[] ret = {"百度定位"};
+        String[] ret = {"百度定位", "百度地图"};
         return ret;
     }
 
@@ -24,6 +25,9 @@ public class BaiduDemo extends  DemoListActivity{
         switch (position){
             case 0:
                 _intent(LocationActivity.class);
+                break;
+            case 1:
+                _intent(BaiduMapActivity.class);
                 break;
         }
     }

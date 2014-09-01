@@ -12,6 +12,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.GeofenceClient;
 import com.baidu.location.LocationClient;
+import com.baidu.mapapi.SDKInitializer;
 import com.willchun.library.base.AndApplication;
 import com.willchun.library.platform.baidu.BaiduPlatformLocationAgent;
 import org.w3c.dom.Text;
@@ -25,7 +26,10 @@ public class DemoApp extends AndApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        SDKInitializer.initialize(this);
         BaiduPlatformLocationAgent.getInstance(this);
+
     }
 
 

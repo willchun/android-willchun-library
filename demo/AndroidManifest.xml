@@ -92,6 +92,8 @@
         <!-- 百度地图 -->
         <activity android:name=".BaiduDemo"></activity>
         <activity android:name=".baidu.LocationActivity"></activity>
+        <activity android:name=".baidu.BaiduMapActivity"></activity>
+
 
     <!-- 网络监测服务 -->    
     <service android:name="com.willchun.library.service.NetworkStateService"/>
