@@ -37,6 +37,8 @@ public class ViewDemo extends DemoListActivity {
         case 4:
         	_intent(BlurImageViewDemo.class);
         	break;
+        case 5:
+            _intent(MixedChoiceAdapterViewDemo.class);
         default:
             break;
         }
@@ -45,7 +47,7 @@ public class ViewDemo extends DemoListActivity {
     @Override
     public String[] getListName() {
         // TODO Auto-generated method stub
-        String[] str = {"ToastView", "RoundImageView", "TextSizeColor", "FormEditText", "BlurImageView"};
+        String[] str = {"ToastView", "RoundImageView", "TextSizeColor", "FormEditText", "BlurImageView", "MixedChoiceAdapter"};
         return str;
     }
 

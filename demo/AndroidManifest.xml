@@ -79,6 +79,7 @@
         <activity android:name=".view.TextSizeColorViewDemo"></activity>
     	<activity android:name=".view.FormEditTextViewDemo"></activity>
     	<activity android:name=".view.BlurImageViewDemo"></activity>
+        <activity android:name=".view.MixedChoiceAdapterViewDemo"/>
         <!-- service -->
         <activity android:name=".service.ServiceDemo"></activity>
         <activity android:name=".service.NetworkStateServiceDemo"></activity>
