@@ -37,11 +37,12 @@ public class MixedChoiceAdapterViewDemo extends AndActivity implements View.OnCl
         };
         mAdapter.setItemBg(R.drawable.shape_bg_mixed_choose_default, R.drawable.shape_bg_mixed_choose_selected);
         mAdapter.addAll(cities);
+        mAdapter.setMaxNumber(3);
 
         mAdapter.setOnMixedChoiceListener(new MixedChoiceAdapter.OnMixedChoiceListener() {
             @Override
             public void onCurrentClickItem(int position, boolean status) {
-
+                ToastView.show(MixedChoiceAdapterViewDemo.this, "position:" + position + "  status:" + status);
             }
         });
         mAdapter.setMixedKeys(0);

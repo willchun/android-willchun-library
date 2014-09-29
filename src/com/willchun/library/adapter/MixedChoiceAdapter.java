@@ -25,7 +25,7 @@ public abstract class MixedChoiceAdapter<T> extends ArrayAdapter<T> implements A
         SINGLE, MULTI, MIXED
     }
 
-    private MODE mode =MODE.MULTI;;
+    private MODE mode =MODE.MIXED;;
     /**
      * 数据源
      */
@@ -43,10 +43,13 @@ public abstract class MixedChoiceAdapter<T> extends ArrayAdapter<T> implements A
     private int mBgDefaultId;
     private int mBgSelectedId;
 
+    private int MAX_NUMBE = 0;//最大选择数 0代表无限大
 
     private Activity activity;
 
     private OnMixedChoiceListener mMixedChooseListener = null;
+
+    private int maxNumber;//最大选择数
 
     public MixedChoiceAdapter(Activity activity, int resource, List<T> objects) {
         super(activity, resource, objects);
@@ -113,8 +116,43 @@ public abstract class MixedChoiceAdapter<T> extends ArrayAdapter<T> implements A
         notifyDataSetChanged();
     }
 
+    public void setMaxNumber(int maxNumber){
+        this.maxNumber = maxNumber;
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (mode){
+            case SINGLE:
+                break;
+            case MULTI:
+                if(!mSelectedSets.contains(position)){
+                    if(maxNumber != 0 && mSelectedSets.size() >= maxNumber){
+                        if(mMixedChooseListener != null){
+                            mMixedChooseListener.onCurrentClickItem(position, mSelectedSets.contains(position));
+                        }
+                        return;
+                    }
+                }
+                break;
+            case MIXED:
+                if(!mSelectedSets.contains(position) && !mMixedKeySets.contains(position)) {
+                    List<Integer> noKeyList = new ArrayList<Integer>();
+                    List<Integer> cangkuList = getCurrentSelectedPosition();
+                    for (int tmp : cangkuList) {
+                        if (!mMixedKeySets.contains(tmp)) {
+                            noKeyList.add(tmp);
+                        }
+                    }
+                    if (maxNumber != 0 && noKeyList.size() >= maxNumber) {
+                        if (mMixedChooseListener != null) {
+                            mMixedChooseListener.onCurrentClickItem(position, mSelectedSets.contains(position));
+                        }
+                        return;
+                    }
+                }
+                break;
+        }
         //针对点击的item， 获取前一刻的点击状态并改变为当前的点击状态
         if(mSelectedSets.contains(position)){
             mSelectedSets.remove(position);
@@ -127,8 +165,6 @@ public abstract class MixedChoiceAdapter<T> extends ArrayAdapter<T> implements A
         if(mMixedChooseListener != null){
             mMixedChooseListener.onCurrentClickItem(position, mSelectedSets.contains(position));
         }
-
-
 
         notifyDataSetChanged();
     }
@@ -192,6 +228,7 @@ public abstract class MixedChoiceAdapter<T> extends ArrayAdapter<T> implements A
                 break;
             case MULTI:
                 //多选择本来就是天生属性
+
                 break;
             case MIXED:
                 //当一个选择来自key 那么清除掉互斥相
