@@ -269,4 +269,19 @@ public abstract class MixedChoiceAdapter<T> extends ArrayAdapter<T> implements A
         }
         return ret;
     }
+
+    /**
+     * 获取被选择的数据
+     * @return
+     */
+    public List<T> getSelectedData(){
+        List<T> ret = new ArrayList<T>();
+        int len = getCount();
+        for(int i=0; i<len; i++){
+            if(mSelectedSets.contains(i)){
+                ret.add(getItem(i));
+            }
+        }
+        return  ret;
+    }
 }
