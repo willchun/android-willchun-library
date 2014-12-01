@@ -94,7 +94,7 @@
         <activity android:name=".BaiduDemo"></activity>
         <activity android:name=".baidu.LocationActivity"></activity>
         <activity android:name=".baidu.BaiduMapActivity"></activity>
-
+        <activity android:name=".map.PaMapActivity" android:screenOrientation="portrait"></activity>
 
     <!-- 网络监测服务 -->    
     <service android:name="com.willchun.library.service.NetworkStateService"/>

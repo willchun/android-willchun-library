@@ -23,7 +23,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="willchun-library" />
+    <orderEntry type="module" module-name="willchun-library" exported="" />
   </component>
 </module>
 

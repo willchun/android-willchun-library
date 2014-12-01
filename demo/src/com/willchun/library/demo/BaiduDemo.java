@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import com.willchun.library.demo.baidu.BaiduMapActivity;
 import com.willchun.library.demo.baidu.LocationActivity;
+import com.willchun.library.demo.map.PaMapActivity;
 
 /**
  * Created by Administrator on 2014/8/28.
@@ -11,7 +12,7 @@ import com.willchun.library.demo.baidu.LocationActivity;
 public class BaiduDemo extends  DemoListActivity{
     @Override
     public String[] getListName() {
-        String[] ret = {"百度定位", "百度地图"};
+        String[] ret = {"百度定位", "百度地图", "PA地图"};
         return ret;
     }
 
@@ -28,6 +29,9 @@ public class BaiduDemo extends  DemoListActivity{
                 break;
             case 1:
                 _intent(BaiduMapActivity.class);
+                break;
+            case 2:
+                _intent(PaMapActivity.class);
                 break;
         }
     }

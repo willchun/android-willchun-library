@@ -57,11 +57,73 @@
             android:background="#55888888"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <CheckBox
-                    android:id="@+id/mulch_cb"
+        <CheckBox
+                    android:id="@+id/op_marker_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="覆盖物"/>
+                    android:text="MO"/>
+        <Button
+                android:id="@+id/op_other_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"/>
+        <Button
+                android:id="@+id/op_clear_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clear"/>
+        <Button
+                android:id="@+id/bounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ov"/>
+        <Button android:id="@+id/hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hot"/>
+        <Button android:id="@+id/clean_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clean hot"/>
+        <Button android:id="@+id/search_shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="shop"/>
     </LinearLayout>
+    <LinearLayout
+            android:gravity="center_vertical"
+            android:background="#55888888"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                    android:id="@+id/route_start_et"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="至"/>
+            <EditText
+                    android:id="@+id/route_end_et"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"/>
+            <Button
+                    android:id="@+id/route_jc_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="searchButtonProcess"
+                    android:text="驾车"/>
+            <Button
+                    android:id="@+id/route_gj_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="searchButtonProcess"
+                    android:text="公交"/>
+            <Button
+                    android:id="@+id/route_bx_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="searchButtonProcess"
+                    android:text="步行"/>
+    </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>
