@@ -209,7 +209,7 @@ public class BaiduMapActivity extends AndActivity implements CompoundButton.OnCh
                     };
                 }
                 //创建InfoWindow , 传入 view， 地理坐标
-                InfoWindow infoWindow = new InfoWindow(button , infoLL, listener);
+                InfoWindow infoWindow = new InfoWindow(button , infoLL, 50);
                 mBaiduMap.showInfoWindow(infoWindow);
                 return true;
             }
