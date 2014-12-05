@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <TextView
+    <com.willchun.library.view.IconFontTextView
         android:id="@+id/map_detail_condition_ic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,6 +8,9 @@ package com.willchun.library.demo.view;
 
 import android.os.Bundle;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.util.Log;
 import com.willchun.library.base.AndActivity;
 import com.willchun.library.demo.R;
 

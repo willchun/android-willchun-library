@@ -15,6 +15,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.*;
 import com.willchun.library.demo.R;
+import com.willchun.library.view.IconFontTextView;
 
 
 /**
@@ -112,14 +113,20 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
         mOther_POI.setOnClickListener(this);
         mLife_POI.setOnClickListener(this);
 
-        //mTraffic_IC = getPoifindTV(mTraffic_POI, R.id.map_detail_condition_ic);
-        getPoifindTV(mTraffic_POI, R.id.map_detail_condition_tv).setText("交通");
-        //mSchool_IC = getPoifindTV(mSchool_POI, R.id.map_detail_condition_ic);
-        getPoifindTV(mSchool_POI, R.id.map_detail_condition_tv).setText("学校");
-        //mOther_IC = getPoifindTV(mOther_POI, R.id.map_detail_condition_ic);
-        getPoifindTV(mOther_POI, R.id.map_detail_condition_tv).setText("楼盘");
-        //mLife_IC = getPoifindTV(mLife_POI, R.id.map_detail_condition_ic);
-        getPoifindTV(mLife_POI, R.id.map_detail_condition_tv).setText("生活");
+        getPoifindIconFont(mTraffic_POI, R.id.map_detail_condition_ic).textCode(0xe644);
+        getPoifindTextView(mTraffic_POI, R.id.map_detail_condition_tv).setText("交通");
+        getPoifindIconFont(mSchool_POI, R.id.map_detail_condition_ic).textCode(0xe647);
+        getPoifindTextView(mSchool_POI, R.id.map_detail_condition_tv).setText("学校");
+        getPoifindIconFont(mOther_POI, R.id.map_detail_condition_ic).textCode(0xe645);
+        getPoifindTextView(mOther_POI, R.id.map_detail_condition_tv).setText("楼盘");
+        getPoifindIconFont(mLife_POI, R.id.map_detail_condition_ic).textCode(0xe646);
+        getPoifindTextView(mLife_POI, R.id.map_detail_condition_tv).setText("生活");
+
+        changeIconAndColor(mTraffic_POI, false);
+        changeIconAndColor(mSchool_POI, false);
+        changeIconAndColor(mOther_POI, false);
+        changeIconAndColor(mLife_POI, false);
+
 
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
@@ -135,17 +142,21 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
         return (LinearLayout)findViewById(id);
     }
 
-    private TextView getPoifindTV(View root, int id){
+    private IconFontTextView getPoifindIconFont(View root, int id){
+        return (IconFontTextView)root.findViewById(id);
+    }
+
+    private TextView getPoifindTextView(View root, int id){
         return (TextView)root.findViewById(id);
     }
 
     private void changeIconAndColor(View root, boolean isSelected){
         if(isSelected){
-            getPoifindTV(root, R.id.map_detail_condition_ic).setTextColor(mSelectColor);
-            getPoifindTV(root, R.id.map_detail_condition_tv).setTextColor(mSelectColor);
+            getPoifindIconFont(root, R.id.map_detail_condition_ic).setTextColor(mSelectColor);
+            getPoifindTextView(root, R.id.map_detail_condition_tv).setTextColor(mSelectColor);
         }else{
-            getPoifindTV(root, R.id.map_detail_condition_ic).setTextColor(mNormalColor);
-            getPoifindTV(root, R.id.map_detail_condition_tv).setTextColor(mNormalColor);
+            getPoifindIconFont(root, R.id.map_detail_condition_ic).setTextColor(mNormalColor);
+            getPoifindTextView(root, R.id.map_detail_condition_tv).setTextColor(mNormalColor);
         }
     }
 
@@ -185,6 +196,7 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
         switch (v.getId()){
             case R.id.pa_map_traffic_ng:
                 isTraffic = !isTraffic;
+                changeIconAndColor(mTraffic_POI, isTraffic);
                 if(isTraffic){
                     searchPoiByKey(POI_SEARCH_TYPE_TRAFFIC);
                 }else{
@@ -193,6 +205,7 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
                 break;
             case R.id.pa_map_school_ng:
                 isSchool = !isSchool;
+                changeIconAndColor(mSchool_POI, isSchool);
                 if(isSchool) {
                     searchPoiByKey(POI_SEARCH_TYPE_SCHOOL);
                 }else{
@@ -201,6 +214,7 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
                 break;
             case R.id.pa_map_life_ng:
                 isLife = !isLife;
+                changeIconAndColor(mLife_POI, isLife);
                 if(isLife) {
                     searchPoiByKey(POI_SEARCH_TYPE_LIFE);
                 }else{
@@ -209,6 +223,7 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
                 break;
             case R.id.pa_map_other_ng:
                 isOther = !isOther;
+                changeIconAndColor(mOther_POI, isOther);
                 if(isOther) {
                     searchPoiByKey(POI_SEARCH_TYPE_OTHER);
                 }else{
