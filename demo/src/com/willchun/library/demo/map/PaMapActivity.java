@@ -3,13 +3,17 @@ package com.willchun.library.demo.map;/**
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.baidu.location.*;
 import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
@@ -57,6 +61,7 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
     private MyMarker mOtherMarker;
     private MyMarker mLifeMarker;
 
+    private LocationClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -65,9 +70,14 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
 
         mMapView = (MapView)findViewById(R.id.pa_mapview);
         mBaiduMap = mMapView.getMap();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
         //关闭俯瞰图手势
         mBaiduMap.getUiSettings().setOverlookingGesturesEnabled(false);
-
+        //开启定位图层
+        initLocation();
 
         initMainMarker("万年的板蓝根", new LatLng(31.22, 121.48));
         initPoiMarker();
@@ -138,6 +148,45 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
 
     }
 
+    /**
+     * 开启定位图层
+     */
+    public void initLocation(){
+        //定位图层是否显示
+        //mBaiduMap.setMyLocationEnabled(true);
+
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
+        option.setCoorType(BDGeofence.COORD_TYPE_BD09LL);//coorType - 取值有3个： 返回国测局经纬度坐标系：gcj02 返回百度墨卡托坐标系 ：bd09 返回百度经纬度坐标系 ：bd09ll
+        option.setScanSpan(5000);//设置发起定位请求的间隔时间为5000ms
+        //option.setIsNeedAddress(true);//返回的定位结果包含地址信息
+        //option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
+        option.setOpenGps(true);
+        mLocationClient = new LocationClient(getApplicationContext());
+        mLocationClient.setLocOption(option);
+        mLocationClient.registerLocationListener(new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                if(mMapView == null || bdLocation == null)
+                    return;
+                MyLocationData locData = new MyLocationData.Builder()
+                        .accuracy(bdLocation.getRadius())
+                                // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(bdLocation.getDirection()).latitude(bdLocation.getLatitude())
+                        .longitude(bdLocation.getLongitude()).build();
+                mBaiduMap.setMyLocationData(locData);
+
+                /*LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+                mBaiduMap.animateMapStatus(u);*/
+
+            }
+        });
+        mLocationClient.start();
+
+    }
+
+
     private LinearLayout getPoifindLL(int id){
         return (LinearLayout)findViewById(id);
     }
@@ -188,6 +237,10 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
         mPoiSearch = null;
         mMapView.onDestroy();
         mMapView = null;
+        if(mLocationClient != null){
+            mLocationClient.stop();
+            mLocationClient = null;
+        }
         super.onDestroy();
     }
 
@@ -357,4 +410,33 @@ public class PaMapActivity extends Activity implements View.OnClickListener, OnG
         }
         mBaiduMap.showInfoWindow(new InfoWindow(popTV, parentLL, -height));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("查询路线").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        if("查询路线".equals(item.getTitle())){
+            Intent i = new Intent(this, PaRouteMapActivity.class);
+            MyLocationData data = mBaiduMap.getLocationData();
+            if(data != null){
+                i.putExtra("lat", data.latitude);
+                i.putExtra("lng", data.longitude);
+            }
+
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
