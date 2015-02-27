@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.baidu.location.*;
 import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.overlayutil.WalkingRouteOverlay;
 import com.baidu.mapapi.search.core.RouteLine;
 import com.baidu.mapapi.search.core.RouteNode;
 import com.baidu.mapapi.search.core.SearchResult;
@@ -115,15 +116,30 @@ public class PaRouteMapActivity extends Activity implements OnGetRoutePlanResult
 
 
     @Override
-    public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
+    public void onGetWalkingRouteResult(WalkingRouteResult result) {
+        if(result == null || result.error != SearchResult.ERRORNO.NO_ERROR){
+            return;
+        }
 
+        if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
+            //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
+            //result.getSuggestAddrInfo()
+            return;
+        }
+
+        if (result.error == SearchResult.ERRORNO.NO_ERROR) {
+            mRouteLine = result.getRouteLines().get(0);
+            WalkingRouteOverlay wro = new WalkingRouteOverlay(mBaiduMap);
+            mBaiduMap.setOnMarkerClickListener(wro);
+            wro.setData(result.getRouteLines().get(0));
+            wro.addToMap();
+            wro.zoomToSpan();
+        }
     }
 
     @Override
     public void onGetTransitRouteResult(TransitRouteResult result) {
-        if(result == null || result.error != SearchResult.ERRORNO.NO_ERROR){
-            return;
-        }
+
 
     }
 
